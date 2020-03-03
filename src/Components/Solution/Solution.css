@@ -1,0 +1,13 @@
+.wrapperBackground{
+    position: relative;
+    height: 100vh;
+    background: url(../../assets/hero.jpg);
+    background-color: #2E0927;
+    background-size: cover;
+}
+.article {
+    height: 100vh;
+    margin-top: 0;
+    padding-top: 99px;
+    padding-bottom: 51px;
+}
