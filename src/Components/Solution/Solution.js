@@ -16,16 +16,20 @@ class Solution extends React.Component {
         this.superInsertElement = React.createRef();
     }
 
-    updateData(datas){
+    updateData(datas, param){
         debugger;
         let getIndex = this.state.item.findIndex(res=>{
            return res.Id == datas.Id
         })
-
-        if(getIndex == -1){
-            this.state.item.push({Id:datas.Id, name:datas.name, email:datas.email, designation:datas.designation});
-            this.setState({item:this.state.item});
-        }else{
+        if (param=='insert'){
+            if(getIndex == -1){
+                this.state.item.push({Id:datas.Id, name:datas.name, email:datas.email, designation:datas.designation});
+                this.setState({item:this.state.item});
+            }else{
+                this.superInsertElement.current.resetForm(datas);
+            }
+        }
+        else {
             this.state.item[getIndex].id = datas.Id;
             this.state.item[getIndex].name = datas.name;
             this.state.item[getIndex].email = datas.email;

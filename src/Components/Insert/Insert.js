@@ -32,7 +32,18 @@ class Insert extends React.Component{
         })
     };
 
-    handleSubmit(e){
+    resetForm = (data) => {
+        this.setState({
+            Id : data.Id,
+            name : data.name,
+            email : data.email,
+            designation : data.designation,
+            disabled: false
+        })
+        alert("userId is Already exist in List");
+    }
+
+    handleSubmit(e, param){
         e.preventDefault();
         this.objData = {
             Id:this.state.Id,
@@ -40,12 +51,15 @@ class Insert extends React.Component{
             email:this.state.email,
             designation:this.state.designation,
         }
-        this.props.triggerParent(this.objData);
         this.setState({Id:'', name:'', email:'', designation:''});
+        this.props.triggerParent(this.objData, param);
     }
 
-    updateButton(){
+    updateButton(e){
+        e.preventDefault();
         this.setState({disabled:false});
+        this.props.triggerParent(this.objData);
+        this.handleSubmit(e, "update");
     }
 
     handleFieldChange(event){
@@ -75,7 +89,7 @@ class Insert extends React.Component{
         };
         
         return (
-            <form id="myForm" style={stl} onSubmit={this.handleSubmit}>
+            <form id="myForm" style={stl} onSubmit={(event)=>this.handleSubmit(event,'insert')}>
              <FormGroup controlId="ids" bsSize="large">
               <FormLabel>Id</FormLabel>
               <FormControl
@@ -113,7 +127,7 @@ class Insert extends React.Component{
             </FormGroup>
             <input type='submit' value="Insert" disabled={this.state.disabled} />
              <input
-                type='submit' value="Update" disabled={!this.state.disabled} onClick={()=>{this.updateButton()}}/>    
+                type='submit' value="Update" disabled={!this.state.disabled} onClick={(event)=>{this.updateButton(event)}}/>    
           </form>
         )
     }
